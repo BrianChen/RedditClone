@@ -1,0 +1,28 @@
+<h1>New Post</h1>
+
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:errors] %>
+  <p><%= flash[:errors].join(", ") %></p>
+<% end %>
+
+<form action="<%= posts_url %>" method="post">
+  <input type='hidden' name="authenticity_token" value="<%= form_authenticity_token %>">
+  <label>Title:
+    <input type="text" name="post[title]">
+  </label>
+  <br>
+  <label>Content:
+    <input type="text" name="post[content]">
+  </label>
+
+  <ul>
+    <% @subs.each do |subb| %>
+      <li><input type="checkbox" name="post[sub_id][]" value="<%=subb.id%>"> <%=subb.title%></li>
+    <% end %>
+    </ul>
+  <br>
+
+  <button>Submit</button>
+</form>
